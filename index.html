@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>联合家族办公室 · 服务架构</title>
+<meta name="description" content="以家族长期利益为中心的一站式整合服务平台 — Joint Family Office" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --navy:#16263F;
+  --navy-2:#1E3354;
+  --navy-3:#2A4263;
+  --gold:#C9A227;
+  --gold-2:#D4AF3E;
+  --gold-light:#E8C766;
+  --gold-soft:#F5E6B0;
+  --bg:#EDF1F7;
+  --bg-2:#DDE3EC;
+  --cream:#FAF7F0;
+  --paper:#F5F0E6;
+  --ink:#2B2B2B;
+  --white:#FFFFFF;
+  --text:#16263F;
+  --muted:#5C6B82;
+  --card-shadow:0 8px 30px rgba(22,38,63,.10);
+  --card-shadow-hover:0 18px 50px rgba(22,38,63,.18);
+  --card-radius:16px;
+  --transition:.4s cubic-bezier(.23,1,.32,1);
+}
+
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif;-webkit-font-smoothing:antialiased;background:var(--bg);color:var(--text);overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(201,162,39,.06),transparent 70%),radial-gradient(ellipse 60% 50% at 0% 100%,rgba(22,38,63,.05),transparent 70%),var(--bg)}
+
+/* ============ NAV ============ */
+nav{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(22,38,63,.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(201,162,39,.2);transition:var(--transition)}
+.nav-inner{max-width:1320px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px;padding:0 24px}
+.nav-logo{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;color:#fff;letter-spacing:1px}
+.nav-logo span{color:var(--gold);margin-right:6px}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{color:rgba(255,255,255,.72);text-decoration:none;font-size:13.5px;font-weight:400;transition:color .25s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-6px;left:0;width:0;height:2px;background:var(--gold);transition:width .3s}
+.nav-links a:hover{color:#fff}
+.nav-links a:hover::after{width:100%}
+
+/* ============ HERO ============ */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:radial-gradient(circle at 70% 30%,rgba(201,162,39,.08),transparent 50%),linear-gradient(160deg,var(--navy) 0%,var(--navy-2) 50%,var(--navy) 100%)}
+.hero::after{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,.015) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,.015) 40px);pointer-events:none}
+.hero-content{text-align:center;z-index:2;padding:0 24px;max-width:920px;animation:fadeUp 1.2s cubic-bezier(.23,1,.32,1)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(201,162,39,.15);border:1px solid rgba(201,162,39,.35);border-radius:100px;padding:8px 20px;margin-bottom:32px;font-size:13px;color:var(--gold-light);letter-spacing:1px}
+.hero-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--gold)}
+
+.hero h1{font-family:'Noto Serif SC',serif;font-size:clamp(36px,6vw,56px);font-weight:900;color:#fff;line-height:1.25;margin-bottom:16px;letter-spacing:2px}
+.hero h1 .gold-line{display:inline-block;position:relative;color:var(--gold-light)}
+.hero h1 .gold-line::after{content:'';position:absolute;bottom:2px;left:0;width:100%;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold-light),var(--gold))}
+.hero-sub{font-size:clamp(14px,2vw,18px);color:rgba(255,255,255,.55);font-weight:300;letter-spacing:1px;margin-bottom:40px}
+
+/* Munger quote in hero */
+.hero-quote{max-width:680px;margin:0 auto 48px;padding:28px 36px;background:rgba(255,255,255,.05);border:1px solid rgba(201,162,39,.2);border-radius:16px;backdrop-filter:blur(10px)}
+.hero-quote-text{font-family:'Noto Serif SC',serif;font-size:clamp(16px,2.2vw,20px);color:rgba(255,255,255,.85);line-height:1.8;font-weight:400}
+.hero-quote-text::before{content:'\201C';font-size:42px;color:var(--gold);vertical-align:-12px;margin-right:4px;font-family:'Cormorant Garamond',serif}
+.hero-quote-author{font-size:13px;color:var(--gold-light);margin-top:16px;letter-spacing:1px;font-style:italic}
+
+.hero-tags{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.hero-tag{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:10px 22px;font-size:14px;color:rgba(255,255,255,.8);backdrop-filter:blur(10px)}
+
+.hero-scroll{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.4);font-size:12px;letter-spacing:2px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.hero-scroll .line{width:1px;height:40px;background:linear-gradient(to bottom,rgba(201,162,39,.5),transparent);animation:scrollLine 2s ease-in-out infinite}
+@keyframes scrollLine{0%,100%{transform:scaleY(.5)}50%{transform:scaleY(1)}}
+
+/* ============ SECTIONS ============ */
+section{padding:100px 24px}
+.container{max-width:1320px;margin:0 auto}
+
+.section-header{text-align:center;margin-bottom:64px}
+.section-label{font-family:'Noto Serif SC',serif;font-size:13px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:12px}
+.section-title{font-family:'Noto Serif SC',serif;font-size:clamp(28px,4vw,40px);font-weight:700;color:var(--navy);line-height:1.3}
+.section-desc{font-size:15px;color:var(--muted);margin-top:14px;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.8}
+
+/* Section-level Munger quote */
+.section-quote{max-width:780px;margin:0 auto 56px;text-align:center;padding:0 24px}
+.section-quote-mark{font-family:'Cormorant Garamond',serif;font-size:56px;color:var(--gold);line-height:1;opacity:.4}
+.section-quote-text{font-family:'Noto Serif SC',serif;font-size:clamp(17px,2.5vw,22px);color:var(--navy);line-height:1.8;font-weight:600;margin-top:-16px}
+.section-quote-note{font-size:14px;color:var(--muted);margin-top:14px;line-height:1.8;font-style:italic}
+.section-quote-author{font-size:13px;color:var(--gold);margin-top:12px;letter-spacing:1px;font-style:italic}
+
+/* ============ GOVERNANCE ============ */
+#governance{background:var(--bg)}
+.gov-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.gov-card{background:var(--white);border-radius:var(--card-radius);padding:36px 32px;box-shadow:var(--card-shadow);transition:var(--transition);position:relative;overflow:hidden;border:1px solid rgba(22,38,63,.04)}
+.gov-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:0;background:linear-gradient(to bottom,var(--gold),var(--gold-light));transition:height .5s cubic-bezier(.23,1,.32,1)}
+.gov-card:hover{transform:translateY(-8px);box-shadow:var(--card-shadow-hover)}
+.gov-card:hover::before{height:100%}
+.gov-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:24px;background:linear-gradient(135deg,rgba(201,162,39,.12),rgba(201,162,39,.04));transition:var(--transition)}
+.gov-card:hover .gov-icon{transform:scale(1.1) rotate(-4deg)}
+.gov-icon svg{width:26px;height:26px}
+.gov-title{font-size:20px;font-weight:700;color:var(--navy);margin-bottom:6px}
+.gov-title-en{font-size:13px;color:var(--gold);font-weight:500;margin-bottom:16px;letter-spacing:.5px}
+.gov-desc{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid rgba(22,38,63,.06)}
+.gov-body{list-style:none}
+.gov-body li{font-size:13.5px;color:var(--muted);line-height:2.1;position:relative;padding-left:18px}
+.gov-body li::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:2px;background:var(--gold);opacity:.6}
+
+/* Card-level Munger quote */
+.card-quote{margin-top:20px;padding-top:16px;border-top:1px dashed rgba(201,162,39,.25);font-size:13px;color:var(--gold);line-height:1.7;font-style:italic;position:relative}
+.card-quote::before{content:'\201C';font-family:'Cormorant Garamond',serif;font-size:28px;color:rgba(201,162,39,.3);position:absolute;top:10px;left:0}
+.card-quote span{display:block;padding-left:20px}
+.card-quote .cq-author{font-style:normal;font-size:11px;color:rgba(201,162,39,.6);margin-top:6px;padding-left:20px}
+
+/* ============ SERVICES ============ */
+#services{background:linear-gradient(180deg,var(--navy) 0%,var(--navy-2) 100%);position:relative}
+#services::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,.012) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,.012) 40px);pointer-events:none}
+#services .section-label{color:var(--gold)}
+#services .section-title{color:#fff}
+#services .section-desc{color:rgba(255,255,255,.5)}
+#services .section-quote-text{color:rgba(255,255,255,.85)}
+#services .section-quote-note{color:rgba(255,255,255,.45)}
+
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;position:relative;z-index:1}
+.svc-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:var(--card-radius);padding:36px 30px;transition:var(--transition);position:relative;overflow:hidden;backdrop-filter:blur(10px)}
+.svc-card:hover{background:rgba(255,255,255,.07);border-color:rgba(201,162,39,.3);transform:translateY(-8px);box-shadow:0 20px 50px rgba(0,0,0,.2)}
+.svc-num{font-family:'Noto Serif SC',serif;font-size:42px;font-weight:900;color:rgba(201,162,39,.15);line-height:1;margin-bottom:16px}
+.svc-card:hover .svc-num{color:rgba(201,162,39,.25)}
+.svc-title{font-size:18px;font-weight:700;color:#fff;margin-bottom:4px}
+.svc-title-en{font-size:12px;color:var(--gold-light);letter-spacing:1px;margin-bottom:20px}
+.svc-body{list-style:none;margin-bottom:20px}
+.svc-body li{font-size:13.5px;color:rgba(255,255,255,.6);line-height:2.0;position:relative;padding-left:18px}
+.svc-body li::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:6px;height:1px;background:var(--gold)}
+.svc-tag{display:inline-block;font-size:12.5px;color:var(--gold-light);padding-top:16px;border-top:1px solid rgba(201,162,39,.15);width:100%;font-style:italic}
+
+/* Dark card quote */
+.svc-card .card-quote{color:var(--gold-light);border-top-color:rgba(201,162,39,.2)}
+.svc-card .card-quote::before{color:rgba(201,162,39,.2)}
+.svc-card .card-quote .cq-author{color:rgba(232,199,102,.5)}
+
+/* ============ SUPPORT ============ */
+#support{background:var(--bg)}
+.sp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.sp-card{background:var(--white);border-radius:var(--card-radius);padding:32px 28px;box-shadow:var(--card-shadow);transition:var(--transition);border:1px solid rgba(22,38,63,.04);display:flex;gap:20px;align-items:flex-start}
+.sp-card:hover{transform:translateY(-6px);box-shadow:var(--card-shadow-hover)}
+.sp-icon{flex-shrink:0;width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--navy),var(--navy-3))}
+.sp-icon svg{width:24px;height:24px}
+.sp-title{font-size:17px;font-weight:700;color:var(--navy);margin-bottom:4px}
+.sp-title-en{font-size:12px;color:var(--gold);margin-bottom:10px;letter-spacing:.5px}
+.sp-desc{font-size:13.5px;color:var(--muted);line-height:1.8}
+
+/* ============ MUNGER WISDOM SECTION ============ */
+#munger{background:var(--cream);position:relative;overflow:hidden}
+#munger::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 50%,rgba(201,162,39,.05),transparent 60%);pointer-events:none}
+
+.munger-intro{text-align:center;max-width:680px;margin:0 auto 64px}
+.munger-name{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,40px);font-weight:600;color:var(--navy);font-style:italic}
+.munger-zh{font-family:'Noto Serif SC',serif;font-size:24px;font-weight:700;color:var(--navy);margin-top:4px}
+.munger-years{font-size:14px;color:var(--gold);margin-top:8px;letter-spacing:2px}
+.munger-bio{font-size:14.5px;color:var(--muted);line-height:1.9;margin-top:20px}
+
+.munger-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;position:relative;z-index:1}
+
+.mq-card{background:var(--white);border-radius:var(--card-radius);padding:0;box-shadow:0 4px 20px rgba(22,38,63,.06);transition:var(--transition);overflow:hidden;border:1px solid rgba(22,38,63,.03)}
+.mq-card:hover{transform:translateY(-6px);box-shadow:var(--card-shadow-hover)}
+
+.mq-card-inner{padding:32px 28px;position:relative}
+.mq-card-inner::before{content:'\201C';font-family:'Cormorant Garamond',serif;font-size:72px;color:rgba(201,162,39,.12);position:absolute;top:8px;left:16px;line-height:1}
+.mq-text{font-family:'Noto Serif SC',serif;font-size:16.5px;font-weight:600;color:var(--navy);line-height:1.8;position:relative;z-index:1;margin-bottom:16px}
+.mq-note{font-size:13.5px;color:var(--muted);line-height:1.9;position:relative;z-index:1}
+.mq-footer{padding:14px 28px;background:var(--paper);border-top:1px solid rgba(201,162,39,.1);font-size:12px;color:var(--gold);letter-spacing:1px;font-style:italic}
+
+/* ============ ARCHITECTURE DIAGRAM ============ */
+#diagram{background:linear-gradient(180deg,var(--bg) 0%,var(--bg-2) 100%)}
+.diagram-wrap{background:var(--white);border-radius:24px;padding:48px;box-shadow:var(--card-shadow);border:1px solid rgba(22,38,63,.04)}
+.diagram-layer{display:grid;grid-template-columns:100%;gap:0;text-align:center}
+.layer-header{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:24px}
+.layer-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;color:#fff;background:linear-gradient(135deg,var(--navy),var(--navy-3))}
+.layer-name{font-size:16px;font-weight:700;color:var(--navy)}
+.diagram-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:0}
+.diagram-cell{padding:20px 16px;border-radius:12px;font-size:14px;font-weight:500;transition:var(--transition)}
+.diagram-cell.gov{background:linear-gradient(135deg,rgba(22,38,63,.06),rgba(22,38,63,.02));border:1px solid rgba(22,38,63,.08);color:var(--navy)}
+.diagram-cell.svc{background:linear-gradient(135deg,rgba(201,162,39,.08),rgba(201,162,39,.02));border:1px solid rgba(201,162,39,.15);color:var(--navy)}
+.diagram-cell.sp{background:linear-gradient(135deg,rgba(42,66,99,.06),rgba(42,66,99,.02));border:1px solid rgba(42,66,99,.08);color:var(--navy)}
+.diagram-cell:hover{transform:scale(1.05)}
+.diagram-cell .en{display:block;font-size:11px;color:var(--muted);margin-top:4px}
+.connector{width:2px;height:36px;margin:0 auto;background:linear-gradient(to bottom,rgba(201,162,39,.5),rgba(201,162,39,.15))}
+
+/* ============ PHILOSOPHY ============ */
+#philosophy{background:var(--navy);text-align:center;position:relative;overflow:hidden}
+#philosophy::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(201,162,39,.06),transparent 60%)}
+.phil-inner{max-width:860px;margin:0 auto;position:relative;z-index:1}
+.phil-label{font-family:'Noto Serif SC',serif;font-size:13px;letter-spacing:4px;color:var(--gold);margin-bottom:12px}
+.phil-title{font-family:'Noto Serif SC',serif;font-size:clamp(24px,4vw,36px);font-weight:700;color:#fff;margin-bottom:24px}
+.phil-divider{width:48px;height:2px;background:var(--gold);margin:0 auto 24px}
+.phil-text{font-size:18px;color:rgba(255,255,255,.6);line-height:1.9;font-weight:300}
+.phil-munger-quote{font-family:'Noto Serif SC',serif;font-size:clamp(18px,3vw,24px);color:var(--gold-light);font-weight:600;line-height:1.8;margin-top:36px;padding:28px 0;border-top:1px solid rgba(201,162,39,.2);border-bottom:1px solid rgba(201,162,39,.2)}
+.phil-munger-author{font-size:13px;color:var(--gold);margin-top:16px;letter-spacing:1px;font-style:italic}
+.phil-pillars{display:flex;justify-content:center;gap:48px;margin-top:48px;flex-wrap:wrap}
+.phil-pillar{text-align:center}
+.phil-pillar-icon{width:64px;height:64px;border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;background:rgba(201,162,39,.12);border:1px solid rgba(201,162,39,.25);transition:var(--transition)}
+.phil-pillar:hover .phil-pillar-icon{transform:translateY(-6px);background:rgba(201,162,39,.2)}
+.phil-pillar-icon svg{width:28px;height:28px}
+.phil-pillar-name{font-size:16px;font-weight:700;color:#fff}
+.phil-pillar-desc{font-size:13px;color:rgba(255,255,255,.5);margin-top:6px}
+
+/* ============ FOOTER ============ */
+footer{background:var(--navy);padding:48px 24px;text-align:center;border-top:1px solid rgba(201,162,39,.15)}
+.footer-logo{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;color:#fff;margin-bottom:12px}
+.footer-logo span{color:var(--gold);margin-right:6px}
+.footer-tagline{font-size:13px;color:rgba(255,255,255,.4);letter-spacing:1px}
+
+/* ============ REVEAL ============ */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.23,1,.32,1),transform .8s cubic-bezier(.23,1,.32,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal.delay-1{transition-delay:.12s}
+.reveal.delay-2{transition-delay:.24s}
+.reveal.delay-3{transition-delay:.36s}
+.reveal.delay-4{transition-delay:.48s}
+.reveal.delay-5{transition-delay:.60s}
+.reveal.delay-6{transition-delay:.72s}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:1024px){.gov-grid,.svc-grid,.sp-grid,.munger-grid,.diagram-row{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:680px){
+  nav .nav-links{display:none}
+  section{padding:64px 16px}
+  .gov-grid,.svc-grid,.sp-grid,.munger-grid,.diagram-row{grid-template-columns:1fr}
+  .diagram-wrap{padding:24px 16px}
+  .phil-pillars{gap:24px}
+  .hero-tag{padding:8px 14px;font-size:12px}
+  .sp-card{flex-direction:column}
+  .hero-quote{padding:20px 24px}
+  .mq-card-inner{padding:24px 20px}
+  .munger-grid{gap:16px}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo"><span>◆</span>联合家族办公室</div>
+    <ul class="nav-links">
+      <li><a href="#governance">治理与决策</a></li>
+      <li><a href="#services">核心服务</a></li>
+      <li><a href="#support">中后台支撑</a></li>
+      <li><a href="#munger">芒格智慧</a></li>
+      <li><a href="#diagram">架构全景</a></li>
+      <li><a href="#philosophy">服务理念</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Joint Family Office · 一站式整合服务
+    </div>
+    <h1>联合家族办公室<br><span class="gold-line">服务架构</span></h1>
+    <p class="hero-sub">以家族长期利益为中心的全方位服务平台</p>
+
+    <div class="hero-quote">
+      <p class="hero-quote-text">要得到你想要的某样东西，最可靠的办法是让你自己配得上它。</p>
+      <p class="hero-quote-author">— 查理·芒格 Charlie Munger (1924—2023)</p>
+    </div>
+
+    <div class="hero-tags">
+      <div class="hero-tag">财富管理</div>
+      <div class="hero-tag">传承规划</div>
+      <div class="hero-tag">税务筹划</div>
+      <div class="hero-tag">法务合规</div>
+      <div class="hero-tag">家族治理</div>
+      <div class="hero-tag">生活与慈善</div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>SCROLL</span>
+    <div class="line"></div>
+  </div>
+</header>
+
+<!-- ============ GOVERNANCE ============ -->
+<section id="governance">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Architecture Layer ①</div>
+      <h2 class="section-title">治理与决策层</h2>
+      <p class="section-desc">三大委员会构成家族办公室的决策中枢，确立方向、统筹资本、守住底线。</p>
+    </div>
+
+    <div class="section-quote reveal">
+      <div class="section-quote-mark">"</div>
+      <p class="section-quote-text">我们从来不去试图成为非常聪明的人，而是持续地试图别变成蠢货。</p>
+      <p class="section-quote-note">避免愚蠢，比追求聪明更可靠。家办的治理体系首先不是追求最大化回报，而是确保不犯致命错误——活得久，才是家族财富穿越周期的前提。</p>
+      <p class="section-quote-author">— 查理·芒格</p>
+    </div>
+
+    <div class="gov-grid">
+      <div class="gov-card reveal delay-1">
+        <div class="gov-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="gov-title">家族委员会</div>
+        <div class="gov-title-en">Family Council</div>
+        <p class="gov-desc">由家族核心成员与传承代表人组成</p>
+        <ul class="gov-body">
+          <li>制定家族愿景与长期目标</li>
+          <li>确立家族宪章与决策机制</li>
+          <li>协调家族内部利益与沟通</li>
+        </ul>
+        <div class="card-quote">
+          <span>你的对错，并不取决于别人是否认同你——唯一重要的是你的分析和判断是否正确。</span>
+          <div class="cq-author">— 芒格 · 家族决策的独立精神</div>
+        </div>
+      </div>
+
+      <div class="gov-card reveal delay-2">
+        <div class="gov-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div class="gov-title">投资委员会</div>
+        <div class="gov-title-en">Investment Committee</div>
+        <p class="gov-desc">统筹家族资本的整体投资策略</p>
+        <ul class="gov-body">
+          <li>制定资产配置政策与基准</li>
+          <li>审议重大投资与再平衡</li>
+          <li>监督投资表现与归因</li>
+        </ul>
+        <div class="card-quote">
+          <span>我们必须弄清楚自己的优势在哪里，必须在自己的能力圈之内竞争。</span>
+          <div class="cq-author">— 芒格 · 投资决策的能力圈原则</div>
+        </div>
+      </div>
+
+      <div class="gov-card reveal delay-3">
+        <div class="gov-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="gov-title">风险与合规委员会</div>
+        <div class="gov-title-en">Risk &amp; Compliance</div>
+        <p class="gov-desc">守住家族资产的安全底线</p>
+        <ul class="gov-body">
+          <li>识别与监控整体风险敞口</li>
+          <li>利益冲突与隐私管理</li>
+          <li>合规审查与独立监督</li>
+        </ul>
+        <div class="card-quote">
+          <span>告诉我我会死在哪里，我就永远不去那个地方。</span>
+          <div class="cq-author">— 芒格 · 逆向思维与风险规避</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section id="services">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Architecture Layer ②</div>
+      <h2 class="section-title">核心服务条线</h2>
+      <p class="section-desc">六大服务条线覆盖家族财富生命周期的每一个关键环节，从资产增值到精神传承。</p>
+    </div>
+
+    <div class="section-quote reveal">
+      <div class="section-quote-mark">"</div>
+      <p class="section-quote-text">在手里拿着铁锤的人看来，每个问题都像钉子。</p>
+      <p class="section-quote-note">只握一把锤子，看什么都是钉子；头脑里装上多学科的思维模型，世界才恢复成它本来的形状。家办的六条服务线，正是六把不同的工具——财富、传承、税务、法务、治理、生活，缺一不可。</p>
+      <p class="section-quote-author">— 查理·芒格</p>
+    </div>
+
+    <div class="svc-grid">
+      <div class="svc-card reveal delay-1">
+        <div class="svc-num">01</div>
+        <div class="svc-title">财富管理</div>
+        <div class="svc-title-en">WEALTH</div>
+        <ul class="svc-body">
+          <li>全球资产配置与再平衡</li>
+          <li>投资组合构建与监控</li>
+          <li>流动性与现金管理</li>
+        </ul>
+        <div class="svc-tag">→ 让家族财富稳健穿越周期</div>
+        <div class="card-quote">
+          <span>分散投资只会令自己分身不暇，宜重锤出击，集中火力专攻少数优质企业。</span>
+          <div class="cq-author">— 芒格 · 集中投资哲学</div>
+        </div>
+      </div>
+
+      <div class="svc-card reveal delay-2">
+        <div class="svc-num">02</div>
+        <div class="svc-title">传承规划</div>
+        <div class="svc-title-en">LEGACY</div>
+        <ul class="svc-body">
+          <li>家族信托架构设立</li>
+          <li>代际传承与遗嘱安排</li>
+          <li>大额保单与资产隔离</li>
+        </ul>
+        <div class="svc-tag">→ 把财富与精神代代相传</div>
+        <div class="card-quote">
+          <span>每天都要努力让自己比起床时更聪明一点。</span>
+          <div class="cq-author">— 芒格 · 智力复利与代际传承</div>
+        </div>
+      </div>
+
+      <div class="svc-card reveal delay-3">
+        <div class="svc-num">03</div>
+        <div class="svc-title">税务筹划</div>
+        <div class="svc-title-en">TAX</div>
+        <ul class="svc-body">
+          <li>税务合规与申报管理</li>
+          <li>跨境税务架构优化</li>
+          <li>持有与交易结构筹划</li>
+        </ul>
+        <div class="svc-tag">→ 在合规前提下优化持有成本</div>
+        <div class="card-quote">
+          <span>聪明的飞行员即使才华再过人、经验再丰富，也绝不会不使用检查清单。</span>
+          <div class="cq-author">— 芒格 · 纪律重于技巧</div>
+        </div>
+      </div>
+
+      <div class="svc-card reveal delay-1">
+        <div class="svc-num">04</div>
+        <div class="svc-title">法务与合规</div>
+        <div class="svc-title-en">LEGAL</div>
+        <ul class="svc-body">
+          <li>法律主体与架构搭建</li>
+          <li>合同、隐私与资产保全</li>
+          <li>争议防范与合规审查</li>
+        </ul>
+        <div class="svc-tag">→ 筑牢资产安全与隐私防线</div>
+        <div class="card-quote">
+          <span>我们老派而保守，总是留有充足的安全边际。留有充足的安全边际这个概念，永不过时。</span>
+          <div class="cq-author">— 芒格 · 安全边际原则</div>
+        </div>
+      </div>
+
+      <div class="svc-card reveal delay-2">
+        <div class="svc-num">05</div>
+        <div class="svc-title">家族治理</div>
+        <div class="svc-title-en">GOVERNANCE</div>
+        <ul class="svc-body">
+          <li>家族宪章与议事规则</li>
+          <li>接班人培养与家族会议</li>
+          <li>价值观与文化传承</li>
+        </ul>
+        <div class="svc-tag">→ 用规则化解家族内部摩擦</div>
+        <div class="card-quote">
+          <span>追求智慧是人生的道德责任。</span>
+          <div class="cq-author">— 芒格 · 家族文化与价值观根基</div>
+        </div>
+      </div>
+
+      <div class="svc-card reveal delay-3">
+        <div class="svc-num">06</div>
+        <div class="svc-title">生活与慈善</div>
+        <div class="svc-title-en">LIFESTYLE</div>
+        <ul class="svc-body">
+          <li>子女教育与留学规划</li>
+          <li>高端医疗与健康管家</li>
+          <li>慈善基金会与身份规划</li>
+        </ul>
+        <div class="svc-tag">→ 安顿生活，延续社会价值</div>
+        <div class="card-quote">
+          <span>钓鱼的第一条规则：去有鱼的地方。</span>
+          <div class="cq-author">— 芒格 · 选择比努力更重要</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SUPPORT ============ -->
+<section id="support">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Architecture Layer ③</div>
+      <h2 class="section-title">中后台支撑</h2>
+      <p class="section-desc">三大支撑体系保障家族办公室日常运转，让前台服务稳健落地。</p>
+    </div>
+
+    <div class="section-quote reveal">
+      <div class="section-quote-mark">"</div>
+      <p class="section-quote-text">聪明的飞行员即使才华再过人、经验再丰富，也绝不会不使用检查清单。</p>
+      <p class="section-quote-note">纪律不是对智商的侮辱，而是对智商的保护。中后台支撑体系的本质，就是用制度化的检查清单抵抗人性的疏漏——运营如此，数字化如此，风控审计亦如此。</p>
+      <p class="section-quote-author">— 查理·芒格</p>
+    </div>
+
+    <div class="sp-grid">
+      <div class="sp-card reveal delay-1">
+        <div class="sp-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <div>
+          <div class="sp-title">运营管理</div>
+          <div class="sp-title-en">OPERATIONS</div>
+          <p class="sp-desc">账户统筹 · 多维度报表 · 行政与家族事务协调</p>
+        </div>
+      </div>
+      <div class="sp-card reveal delay-2">
+        <div class="sp-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <div>
+          <div class="sp-title">数字化平台</div>
+          <div class="sp-title-en">DIGITAL</div>
+          <p class="sp-desc">家族数据看板 · 信息安全 · 隐私与权限管理</p>
+        </div>
+      </div>
+      <div class="sp-card reveal delay-3">
+        <div class="sp-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </div>
+        <div>
+          <div class="sp-title">风控与审计</div>
+          <div class="sp-title-en">RISK &amp; AUDIT</div>
+          <p class="sp-desc">风险监测预警 · 独立审计 · 制度与流程管控</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MUNGER WISDOM ============ -->
+<section id="munger">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Munger's Wisdom</div>
+      <h2 class="section-title">芒格智慧 · 家办之锚</h2>
+      <p class="section-desc">查理·芒格的投资与人生智慧，是联合家族办公室服务哲学的精神底座。</p>
+    </div>
+
+    <div class="munger-intro reveal">
+      <div class="munger-name">Charlie Munger</div>
+      <div class="munger-zh">查理·芒格</div>
+      <div class="munger-years">1924 — 2023</div>
+      <p class="munger-bio">伯克希尔·哈撒韦副主席，沃伦·巴菲特数十年的黄金搭档。他以跨学科的思维模型、逆向思考和极致理性闻名于世，将投资哲学与人生智慧融为一体。以下九句金句，映射家办三层架构的每一个环节。</p>
+    </div>
+
+    <div class="munger-grid">
+      <!-- Row 1 -->
+      <div class="mq-card reveal delay-1">
+        <div class="mq-card-inner">
+          <p class="mq-text">要得到你想要的某样东西，最可靠的办法是让你自己配得上它。</p>
+          <p class="mq-note">这是芒格人生哲学的第一性原理——向内求。家办的存在，正是帮助家族"配得上"他们所拥有的财富：用治理能力匹配资本量级，用智慧承载传承之重。</p>
+        </div>
+        <div class="mq-footer">家办总纲 · 向内求</div>
+      </div>
+
+      <div class="mq-card reveal delay-2">
+        <div class="mq-card-inner">
+          <p class="mq-text">告诉我我会死在哪里，我就永远不去那个地方。</p>
+          <p class="mq-note">把"如何成功"倒过来问"如何必然失败"，再一条条绕开。风险与合规委员会要做的第一件事，不是找最优解，而是列出所有致命错误的清单，然后远离。</p>
+        </div>
+        <div class="mq-footer">治理层 · 逆向思维</div>
+      </div>
+
+      <div class="mq-card reveal delay-3">
+        <div class="mq-card-inner">
+          <p class="mq-text">我们必须弄清楚自己的优势在哪里，必须在自己的能力圈之内竞争。</p>
+          <p class="mq-note">圈的大小不重要，知道边界在哪里才重要。投资委员会把看不懂的事一律归入"太难"的档案，然后绕开——一辈子只在圈里打球。</p>
+        </div>
+        <div class="mq-footer">治理层 · 能力圈</div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="mq-card reveal delay-1">
+        <div class="mq-card-inner">
+          <p class="mq-text">归根结底，投资只有价值投资一种。</p>
+          <p class="mq-note">量的是树本身，不是别人给的报价。以低于价值的价格买入，是投资唯一的定义。财富管理的核心，从来不是追逐价格，而是丈量价值。</p>
+        </div>
+        <div class="mq-footer">服务线① · 价值投资</div>
+      </div>
+
+      <div class="mq-card reveal delay-2">
+        <div class="mq-card-inner">
+          <p class="mq-text">分散投资只会令自己分身不暇，宜重锤出击，集中火力专攻少数优质企业。</p>
+          <p class="mq-note">好机会罕见到一生只有几次，轮到的时候就该把篮子装满。广撒网是对判断力不自信的表现——家族财富的配置，重质不重量。</p>
+        </div>
+        <div class="mq-footer">服务线① · 集中投资</div>
+      </div>
+
+      <div class="mq-card reveal delay-3">
+        <div class="mq-card-inner">
+          <p class="mq-text">股价公道的伟大企业，胜过股价超低的普通企业。</p>
+          <p class="mq-note">便宜的平庸是陷阱，合理价格的优秀才是复利的发动机。用合理的价格买伟大的公司，远胜用便宜的价格买平庸的公司。</p>
+        </div>
+        <div class="mq-footer">服务线① · 质量优先</div>
+      </div>
+
+      <!-- Row 3 -->
+      <div class="mq-card reveal delay-1">
+        <div class="mq-card-inner">
+          <p class="mq-text">我们老派而保守，总是留有充足的安全边际。留有充足的安全边际这个概念，永不过时。</p>
+          <p class="mq-note">建造时多出的那一截"浪费"，正是洪水来时的生路。法务与合规的核心，是让架构在任何极端情况下都留有余地——桥的价值不在于跨过，而在于跨得有余。</p>
+        </div>
+        <div class="mq-footer">服务线④ · 安全边际</div>
+      </div>
+
+      <div class="mq-card reveal delay-2">
+        <div class="mq-card-inner">
+          <p class="mq-text">你需要的不是大量的行动，而是极大的耐心。</p>
+          <p class="mq-note">芒格给自己的方法起名叫"坐等投资法"：什么都不做，是最难学会、也最赚钱的一招。钱在等待里生长，不在频繁的买卖里。家族传承尤其如此。</p>
+        </div>
+        <div class="mq-footer">服务线②⑤ · 长期主义</div>
+      </div>
+
+      <div class="mq-card reveal delay-3">
+        <div class="mq-card-inner">
+          <p class="mq-text">在手里拿着铁锤的人看来，每个问题都像钉子。</p>
+          <p class="mq-note">只握一把锤子，看什么都是钉子；头脑里装上多学科的思维模型，世界才恢复成它本来的形状。家办的六条服务线，正是六把不同的工具——缺一不可。</p>
+        </div>
+        <div class="mq-footer">全局 · 普世智慧</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ARCHITECTURE DIAGRAM ============ -->
+<section id="diagram">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Overview</div>
+      <h2 class="section-title">架构全景</h2>
+      <p class="section-desc">三层架构自上而下：决策层定方向、服务层做执行、支撑层守底线。</p>
+    </div>
+    <div class="diagram-wrap reveal">
+      <div class="diagram-layer">
+        <div class="layer-header">
+          <div class="layer-num">①</div>
+          <div class="layer-name">治理与决策层</div>
+        </div>
+        <div class="diagram-row">
+          <div class="diagram-cell gov">家族委员会<span class="en">Family Council</span></div>
+          <div class="diagram-cell gov">投资委员会<span class="en">Investment Committee</span></div>
+          <div class="diagram-cell gov">风险与合规委员会<span class="en">Risk &amp; Compliance</span></div>
+        </div>
+      </div>
+      <div class="connector"></div>
+      <div class="diagram-layer">
+        <div class="layer-header">
+          <div class="layer-num">②</div>
+          <div class="layer-name">核心服务条线</div>
+        </div>
+        <div class="diagram-row">
+          <div class="diagram-cell svc">财富管理<span class="en">Wealth</span></div>
+          <div class="diagram-cell svc">传承规划<span class="en">Legacy</span></div>
+          <div class="diagram-cell svc">税务筹划<span class="en">Tax</span></div>
+        </div>
+        <div style="height:16px"></div>
+        <div class="diagram-row">
+          <div class="diagram-cell svc">法务与合规<span class="en">Legal</span></div>
+          <div class="diagram-cell svc">家族治理<span class="en">Governance</span></div>
+          <div class="diagram-cell svc">生活与慈善<span class="en">Lifestyle</span></div>
+        </div>
+      </div>
+      <div class="connector"></div>
+      <div class="diagram-layer">
+        <div class="layer-header">
+          <div class="layer-num">③</div>
+          <div class="layer-name">中后台支撑</div>
+        </div>
+        <div class="diagram-row">
+          <div class="diagram-cell sp">运营管理<span class="en">Operations</span></div>
+          <div class="diagram-cell sp">数字化平台<span class="en">Digital</span></div>
+          <div class="diagram-cell sp">风控与审计<span class="en">Risk &amp; Audit</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PHILOSOPHY ============ -->
+<section id="philosophy">
+  <div class="phil-inner reveal">
+    <div class="phil-label">Our Philosophy</div>
+    <h2 class="phil-title">服务理念</h2>
+    <div class="phil-divider"></div>
+    <p class="phil-text">以家族利益为唯一受托标准<br>独立 · 守秘 · 长期主义</p>
+
+    <div class="phil-munger-quote">
+      成功意味着你要非常有耐心，然而又能够在你知道该采取行动时主动出击。
+    </div>
+    <p class="phil-munger-author">— 查理·芒格</p>
+
+    <div class="phil-pillars">
+      <div class="phil-pillar">
+        <div class="phil-pillar-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <div class="phil-pillar-name">独立</div>
+        <div class="phil-pillar-desc">Independence</div>
+      </div>
+      <div class="phil-pillar">
+        <div class="phil-pillar-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+        </div>
+        <div class="phil-pillar-name">守秘</div>
+        <div class="phil-pillar-desc">Confidentiality</div>
+      </div>
+      <div class="phil-pillar">
+        <div class="phil-pillar-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="phil-pillar-name">长期主义</div>
+        <div class="phil-pillar-desc">Long-termism</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="footer-logo"><span>◆</span>联合家族办公室</div>
+  <div class="footer-tagline">Joint Family Office · 以家族利益为唯一受托标准</div>
+</footer>
+
+<script>
+  // Reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Nav on scroll
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.background = window.scrollY > 40 ? 'rgba(22,38,63,.95)' : 'rgba(22,38,63,.85)';
+  });
+</script>
+
+</body>
+</html>
